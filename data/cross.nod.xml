@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-   <node id="0" x="0.0" y="0.0"  type="traffic_light"/>
-
-   <node id="1" x="-500.0" y="0.0" type="priority"/>
-   <node id="2" x="+500.0" y="0.0" type="priority"/>
-   <node id="3" x="0.0" y="-500.0" type="priority"/>
-   <node id="4" x="0.0" y="+500.0" type="priority"/>
-   
-   <node id="51" x="-510.0" y="0.0" type="priority"/>
-   <node id="52" x="+510.0" y="0.0" type="priority"/>
-   <node id="53" x="0.0" y="-510.0" type="priority"/>
-   <node id="54" x="0.0" y="+510.0" type="priority"/>  
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="1" x="500" y="500"  type="traffic_light"/>
+    <node id="2" x="500" y="1000"  type="traffic_light"/>
+    <node id="3" x="500" y="1500"  type="traffic_light"/>
+    <node id="4" x="500" y="2000"  type="traffic_light"/>
+    <node id="5" x="500" y="2500"  type="traffic_light"/>
+    <node id="6" x="1000" y="500"  type="traffic_light"/>
+    <node id="7" x="1000" y="1000"  type="traffic_light"/>
+    <node id="8" x="1000" y="1500"  type="traffic_light"/>
+    <node id="9" x="1000" y="2000"  type="traffic_light"/>
+    <node id="10" x="1000" y="2500"  type="traffic_light"/>
+    <node id="11" x="1500" y="500"  type="traffic_light"/>
+    <node id="12" x="1500" y="1000"  type="traffic_light"/>
+    <node id="13" x="1500" y="1500"  type="traffic_light"/>
+    <node id="14" x="1500" y="2000"  type="traffic_light"/>
+    <node id="15" x="1500" y="2500"  type="traffic_light"/>
+    <node id="16" x="2000" y="500"  type="traffic_light"/>
+    <node id="17" x="2000" y="1000"  type="traffic_light"/>
+    <node id="18" x="2000" y="1500"  type="traffic_light"/>
+    <node id="19" x="2000" y="2000"  type="traffic_light"/>
+    <node id="20" x="2000" y="2500"  type="traffic_light"/>
+    <node id="21" x="2500" y="500"  type="traffic_light"/>
+    <node id="22" x="2500" y="1000"  type="traffic_light"/>
+    <node id="23" x="2500" y="1500"  type="traffic_light"/>
+    <node id="24" x="2500" y="2000"  type="traffic_light"/>
+    <node id="25" x="2500" y="2500"  type="traffic_light"/>
+    <node id="26" x="500" y="0"  type="priority"/>
+    <node id="27" x="1000" y="0"  type="priority"/>
+    <node id="28" x="1500" y="0"  type="priority"/>
+    <node id="29" x="2000" y="0"  type="priority"/>
+    <node id="30" x="2500" y="0"  type="priority"/>
+    <node id="31" x="3000" y="500"  type="priority"/>
+    <node id="32" x="3000" y="1000"  type="priority"/>
+    <node id="33" x="3000" y="1500"  type="priority"/>
+    <node id="34" x="3000" y="2000"  type="priority"/>
+    <node id="35" x="3000" y="2500"  type="priority"/>
+    <node id="36" x="2500" y="3000"  type="priority"/>
+    <node id="37" x="2000" y="3000"  type="priority"/>
+    <node id="38" x="1500" y="3000"  type="priority"/>
+    <node id="39" x="1000" y="3000"  type="priority"/>
+    <node id="40" x="500" y="3000"  type="priority"/>
+    <node id="41" x="0" y="2500"  type="priority"/>
+    <node id="42" x="0" y="2000"  type="priority"/>
+    <node id="43" x="0" y="1500"  type="priority"/>
+    <node id="44" x="0" y="1000"  type="priority"/>
+    <node id="45" x="0" y="500"  type="priority"/>
 </nodes>

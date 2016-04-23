@@ -10,6 +10,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 from aco_tls_logic import generate_aco_tls_logic
+from pso_tls_logic import generate_pso_tls_logic
 
 try:
     sys.path.append(os.path.join(os.path.dirname(
@@ -410,7 +411,8 @@ def run_sumo(n, summaryFile='summary.xml', tl_data=None, thetype=None):
 
     if thetype == "aco":
         generate_aco_tls_logic(n,tl_data)
-
+    elif thetype == "pso":
+        generate_pso_tls_logic(tl_data)
     elif len(tl_data) == 4:
         #default setup case
         generate_tls_logic(n,tl_data)
