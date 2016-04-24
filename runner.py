@@ -1,7 +1,7 @@
  #!/usr/bin/env python
 import os
 import sys
-import optparse
+import optparse, argparse
 import subprocess
 import random
 import pdb
@@ -13,10 +13,10 @@ from aco_tls_logic import generate_aco_tls_logic
 from pso_tls_logic import generate_pso_tls_logic
 
 try:
-    sys.path.append(os.path.join(os.path.dirname(
-        __file__), '..', '..', '..', '..', "tools"))  # tutorial in tests
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-        os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))  # tutorial in tests
+    sys.path.append(os.path.join(os.environ.get("SUMO_HOME"),"tools"))
+    #sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
+    #    os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
     from sumolib import checkBinary
 except ImportError:
     sys.exit(
@@ -350,7 +350,7 @@ xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">'''
         
         print >> connections, '</connections>'
 
-def run():
+def run(max_step=-1):
     
     """execute the TraCI control loop"""
     traci.init(PORT)
@@ -360,26 +360,11 @@ def run():
     #pdb.set_trace()
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        '''
-        if traci.trafficlights.getPhase("0") == 2:
-            # we are not already switching
-            if traci.inductionloop.getLastStepVehicleNumber("0") > 0:
-                # there is a vehicle from the north, switch
-                traci.trafficlights.setPhase("0", 3)
-            else:
-                # otherwise try to keep green for EW
-                traci.trafficlights.setPhase("0", 2)
-        '''
         step += 1
+        if step > max_step and max_step > 0:
+            break
     traci.close()
     sys.stdout.flush()
-
-def get_options():
-    optParser = optparse.OptionParser()
-    optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
-    options, args = optParser.parse_args()
-    return options
 
 #to setup the xml files and run the default traffic light logic case of SUMO
 def setup_and_run_sumo(n, seed_val):
@@ -424,7 +409,7 @@ def run_sumo(n, summaryFile='summary.xml', tl_data=None, thetype=None):
         # this is the normal way of using traci. sumo is started as a
         # subprocess and then the python script connects and runs
         sumoProcess = subprocess.Popen([sumoBinary, "-c", "data/cross.sumocfg", "--additional-files", "data/cross.add.xml", 
-                                        "--tripinfo-output", "tripinfo.xml", "--duration-log.statistics", "true", 
+                                        "--tripinfo-output", "tripinfo.xml", #"--duration-log.statistics", "true", 
                                         "--summary", summaryFile, "--remote-port", str(PORT)], stdout=sys.stdout, stderr=sys.stderr)
         run()
         sumoProcess.wait()
@@ -442,23 +427,25 @@ def run_sumo(n, summaryFile='summary.xml', tl_data=None, thetype=None):
     print "Mean travel time:", (sum(travel_times) / len(travel_times))
     return (sum(travel_times) / len(travel_times))
 
-
-if __name__ == "__main__":
-    options = get_options()
-    
-    if options.nogui:
+def main(arguments):
+    global args
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('n', help="size of grid (along one side)",type=int, default=5)
+    parser.add_argument('seed', help="seed value",type=int, default=42)
+    parser.add_argument('max_step', help="max steps per simulation",type=int, default=-1)
+    parser.add_argument('use_gui', help="use gui or not", type=bool, default=False)
+    args = parser.parse_args(arguments)
+    n = args.n
+    seed_val = args.seed
+    max_step = args.max_step
+    if args.use_gui:
         sumoBinary = checkBinary('sumo')
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    n = 5
-    seed_val = 42
-
     setup_and_run_sumo(n, seed_val)
-    #run_sumo(n, 'summary.xml',[40,5,20,5])
 
-
-
-
-
-
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
